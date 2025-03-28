@@ -45,6 +45,18 @@ class Form {
             for ($i = 0; $i < $form_inputs_number_check; $i++) {
                 echo htmlspecialchars($form_inputs_submission[$i], ENT_QUOTES, 'UTF-8') . ':' . htmlspecialchars($form_data_check[$i], ENT_QUOTES, 'UTF-8') . '<br>';
             }
+            $to = 'サイト管理者のメールアドレス';
+            $subject = 'サイト名 - お問い合わせが送信されました';
+            $message = "
+            内容は次の通りです。\n
+            ";
+            for ($j = 0; $j < $form_inputs_number_check; $j++) {
+                $message .= htmlspecialchars($form_inputs_submission[$j], ENT_QUOTES, 'UTF-8') . ':' . htmlspecialchars($form_data_check[$j], ENT_QUOTES, 'UTF-8')."\n";
+            }
+            $headers = 'From: サイト管理者のメールアドレス';
+            mb_language('Japanese');
+            mb_internal_encoding('UTF-8');
+            mb_send_mail($to, $subject, $message, $headers);
         }
     }
 
